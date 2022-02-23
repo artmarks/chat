@@ -12,6 +12,10 @@ defmodule ChatWeb.Endpoint do
 
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
 
+  socket "/socket", ChatWeb.UserSocket,
+    websocket: true,
+    longpoll: false
+
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phx.digest
@@ -46,5 +50,16 @@ defmodule ChatWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
+  plug :introspect
   plug ChatWeb.Router
+
+  def introspect(conn, _opts) do
+    IO.puts """
+    Verb: #{inspect(conn.method)}
+    Host: #{inspect(conn.host)}
+    Headers: #{inspect(conn.req_headers)}
+    """
+
+    conn
+  end
 end

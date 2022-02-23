@@ -4,4 +4,9 @@ defmodule ChatWeb.HelloController do
   def index(conn, _params) do
     render(conn, "hello.html")
   end
+
+  def getTest(conn, %{"name" => name}) do
+    render(conn, "helloTest.html", name: name)
+  end
+
 end

@@ -19,6 +19,7 @@ defmodule ChatWeb.Router do
 
     get "/", PageController, :index
     get "/hello", HelloController, :index
+    get "/hello-test/:name", HelloController, :getTest
   end
 
   # Other scopes may use custom stacks.
